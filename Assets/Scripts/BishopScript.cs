@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BishopScript : MonoBehaviour
+public class BishopScript : PiecesScript
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
@@ -16,89 +16,94 @@ public class BishopScript : MonoBehaviour
         
     }
 
-    public static List<(int, int)> BishopPossibleMoves(int i, int j)
+    public override List<(int, int)> Moves()
     {
         var moves = new List<(int, int)>();
         var k = 1;
-        while (i+k < 8 && j+k < 8)
+        while (Position.Item1+k < 8 && Position.Item2+k < 8)
         {
-            if (BoardScript.BoardMatrix[i+k,j+k] != 0) break;
-            moves.Add((i+k,j+k));
+            if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2+k] != 0) break;
+            moves.Add((Position.Item1+k,Position.Item2+k));
             k++;
         }
         k = 1;
-        while (i-k >= 0 && j-k >= 0)
+        while (Position.Item1-k >= 0 && Position.Item2-k >= 0)
         {
-            if (BoardScript.BoardMatrix[i-k,j-k] != 0) break;
-            moves.Add((i-k,j-k));
+            if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2-k] != 0) break;
+            moves.Add((Position.Item1-k,Position.Item2-k));
             k++;
         }
 
         k = 1;
-        while (i-k >= 0 && j+k < 8)
+        while (Position.Item1-k >= 0 && Position.Item2+k < 8)
         {
-            if (BoardScript.BoardMatrix[i-k,j+k] != 0) break;
-            moves.Add((i-k,j+k));
+            if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2+k] != 0) break;
+            moves.Add((Position.Item1-k,Position.Item2+k));
             k++;
         }
         k = 1;
-        while (i+k < 8 && j-k >= 0)
+        while (Position.Item1+k < 8 && Position.Item2-k >= 0)
         {
-            if (BoardScript.BoardMatrix[i+k,j-k] != 0) break;
-            moves.Add((i+k,j-k));
+            if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2-k] != 0) break;
+            moves.Add((Position.Item1+k,Position.Item2-k));
             k++;
         }
         return moves;
     }
     
-    public static List<(int, int)> BishopPossibleAttacks(int i, int j)
+    public override List<(int, int)> Attacks()
     {
         var attacks = new List<(int, int)>();
         var k = 1;
-        while (i+k < 8 && j+k < 8)
+        while (Position.Item1+k < 8 && Position.Item2+k < 8)
         {
-            if (BoardScript.BoardMatrix[i + k, j + k] == 0)
+            if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 + k] == 0)
             {
                 k++;
                 continue;
             }
-            attacks.Add((i+k,j+k));
+            if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 + k] == EnemiesInt) 
+                attacks.Add((Position.Item1+k,Position.Item2+k));
             break;
         }
         k = 1;
-        while (i-k >= 0 && j-k >= 0)
+        while (Position.Item1-k >= 0 && Position.Item2-k >= 0)
         {
-            if (BoardScript.BoardMatrix[i-k,j-k] == 0)
+            if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2-k] == 0)
             {
                 k++;
                 continue;
             }
-            attacks.Add((i-k,j-k));
+            if (BoardScript.BoardMatrix[Position.Item1 - k, Position.Item2 - k] == EnemiesInt) 
+                attacks.Add((Position.Item1-k,Position.Item2-k));
             break;
         }
 
         k = 1;
-        while (i-k >= 0 && j+k < 8)
+        while (Position.Item1-k >= 0 && Position.Item2+k < 8)
         {
-            if (BoardScript.BoardMatrix[i-k,j+k] == 0)
+            if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2+k] == 0)
             {
                 k++;
                 continue;
             }
-            attacks.Add((i-k,j+k));
+            if (BoardScript.BoardMatrix[Position.Item1 - k, Position.Item2 + k] == EnemiesInt) 
+                attacks.Add((Position.Item1-k,Position.Item2+k));
             break;
         }
         k = 1;
-        while (i+k < 8 && j-k >= 0)
+        while (Position.Item1+k < 8 && Position.Item2-k >= 0)
         {
-            if (BoardScript.BoardMatrix[i + k, j - k] == 0)
+            if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 - k] == 0)
             {
                 k++;
                 continue;
             }
-            attacks.Add((i+k,j-k));
+            if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 - k] == EnemiesInt) 
+                attacks.Add((Position.Item1+k,Position.Item2-k));
             break;
         }
         return attacks;
     }
+    
 }
