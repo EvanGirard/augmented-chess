@@ -41,7 +41,7 @@ public abstract class PiecesScript : MonoBehaviour
             for (var i = 0; i < blacks.Count(); i++)
             {
                 if (blacks[i].name != name) continue;
-                var pos = i + ;
+                var pos = i + 48 ;
                 break;
             }
         }
