@@ -13,7 +13,7 @@ enum  PlayerTurn
 
 public class Game : MonoBehaviour {
     
-    private GameObject selectedChessPiece = null;
+    private PiecesScript selectedChessPiece = null;
     private GameObject imageTarget;
     private PlayerTurn playerTurn;
     
@@ -42,16 +42,17 @@ public class Game : MonoBehaviour {
                     {
                         if (selectedChessPiece != null)
                         {
-                            ChangeColor(selectedChessPiece, Color.white);
+                            ChangeColor(selectedChessPiece.gameObject, Color.white);
                         }
-                        selectedChessPiece = hit.transform.gameObject;
-                        ChangeColor(selectedChessPiece, Color.yellow);
+                        selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
+                        ChangeColor(selectedChessPiece.gameObject, Color.yellow);
                     }
                     
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
                     {
+                        //if(hit.collider.gameObject.name = selectedChessPiece.position) return;
                         selectedChessPiece.transform.position = hit.point;
-                        ChangeColor(selectedChessPiece, Color.white);
+                        ChangeColor(selectedChessPiece.gameObject, Color.white);
                         selectedChessPiece = null;
                         playerTurn = PlayerTurn.Black;
                     }
@@ -63,16 +64,17 @@ public class Game : MonoBehaviour {
                     {
                         if (selectedChessPiece != null)
                         {
-                            ChangeColor(selectedChessPiece, Color.black);
+                            ChangeColor(selectedChessPiece.gameObject, Color.black);
                         }
-                        selectedChessPiece = hit.transform.gameObject;
-                        ChangeColor(selectedChessPiece, Color.yellow);
+                        selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
+                        ChangeColor(selectedChessPiece.gameObject, Color.yellow);
                     }
                     
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
                     {
+                        //if(hit.collider.gameObject.name = selectedChessPiece.position) return;
                         selectedChessPiece.transform.position = hit.point;
-                        ChangeColor(selectedChessPiece, Color.black);
+                        ChangeColor(selectedChessPiece.gameObject, Color.black);
                         selectedChessPiece = null;
                         playerTurn = PlayerTurn.White;
                     }
@@ -89,6 +91,11 @@ public class Game : MonoBehaviour {
     public GameObject[] GetWhitePieces()
     {
         return WhitePieces;
+    }
+    
+    public GameObject[] GetCase()
+    {
+        return Case;
     }
     
 
