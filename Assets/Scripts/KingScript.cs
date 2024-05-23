@@ -12,19 +12,8 @@ public class KingScript : PiecesScript
     protected override void Start()
     {
         base.Start();
-        _enemies = whites.Contains(gameObject) ? blacks : whites;
-    }
-
-    public void UpdateEnemies()
-    {
-        _enemies = whites.Contains(gameObject) ? blacks : whites;
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public override List<(int, int)> Moves()
     {

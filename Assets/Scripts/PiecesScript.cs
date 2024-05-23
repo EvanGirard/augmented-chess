@@ -29,18 +29,18 @@ public abstract class PiecesScript : MonoBehaviour
         EnemiesInt = isWhite ? 2 : 1;
         if (isWhite)
         {
-            for (var i = 0; i < whites.Count(); i++)
+            for (var i = 0; i < whites.Length; i++)
             {
-                if (whites[i].name != name) continue;
+                if (whites[i].gameObject.name != name) continue;
                 var pos = i;
                 break;
             }
         }
         else
         {
-            for (var i = 0; i < blacks.Count(); i++)
+            for (var i = 0; i < blacks.Length; i++)
             {
-                if (blacks[i].name != name) continue;
+                if (blacks[i].gameObject.name != name) continue;
                 var pos = i + 48 ;
                 break;
             }

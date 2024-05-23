@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,12 @@ public class Game : MonoBehaviour {
 
     void Start()
     {
-        imageTarget = GameObject.Find("ImageTarget");
+        Debug.Log(BlackPieces[0]);
+        imageTarget = gameObject;
         playerTurn = PlayerTurn.White;
     }
 
+    
     void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -40,12 +43,26 @@ public class Game : MonoBehaviour {
                 {
                     if (WhitePieces.Contains(hit.transform.gameObject))
                     {
+                        selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
+                        
+                        List<(int,int)> moves = selectedChessPiece.Moves();
+                        List<(int,int)> attacks = selectedChessPiece.Attacks();
+                        
+                        foreach (var elem in moves)
+                        {
+                            ChangeColor(Case[elem.Item1 + elem.Item2 * 8], Color.green);
+                        }
+
+                        foreach (var elem in attacks)
+                        {
+                            ChangeColor(Case[elem.Item1 + elem.Item2 * 8], Color.red);
+                        }
+                        
                         if (selectedChessPiece != null)
                         {
                             ChangeColor(selectedChessPiece.gameObject, Color.white);
                         }
                         
-                        //change color of case where the piece can move !!!!!!!!
                         
                         selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
                         ChangeColor(selectedChessPiece.gameObject, Color.yellow);
@@ -54,11 +71,59 @@ public class Game : MonoBehaviour {
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
                     {
                         // Ne pas faire le move si le roi est toujours en échecs
+                        PiecesScript king = null;
                         
-                        //Permet de pas bouger la piece sur elle meme
-                        //if(hit.collider.gameObject.name = selectedChessPiece.position) return;
-                        selectedChessPiece.transform.position = hit.transform.gameObject.transform.position;
+                        foreach (var elem in WhitePieces)
+                        {
+                            if (elem.name == "King")
+                            {
+                                king = elem.GetComponent<PiecesScript>();
+                                break;
+                            }
+                        }
+                        
+                        BoardScript.BoardMatrix[selectedChessPiece.GetPosition().Item1, selectedChessPiece.GetPosition().Item2] = 0;
+                        
+                        foreach (var elem in BlackPieces)
+                        {
+                            Debug.Log(selectedChessPiece.GetPosition());
+                            if (elem.GetComponent<PiecesScript>().IsAttacking(king.GetPosition().Item1, king.GetPosition().Item2))
+                            {
+                                BoardScript.BoardMatrix[selectedChessPiece.GetPosition().Item1, selectedChessPiece.GetPosition().Item2] = 1;
+                                return;
+                            }
+                        }
+                        
+                        if (hit.collider.gameObject.GetComponent<Renderer>().material.color != Color.green || hit.collider.gameObject.GetComponent<Renderer>().material.color != Color.red) return;
+                        
+                        int caseIndex = 0;
+                        
+                        for (int i = 0; i < Case.Length; i++)
+                        {
+                            if (Case[i] == hit.transform.gameObject)
+                            {
+                                caseIndex = i;
+                                break;
+                            }
+                        }
+                        
+                        var column = Math.DivRem(caseIndex, 8, out int line);
+                        selectedChessPiece.SetPosition(line, column);
+                        BoardScript.BoardMatrix[line, column] = 1;
+
+                        foreach (var elem in BlackPieces)
+                        {
+                            if (selectedChessPiece.GetPosition() == elem.GetComponent<PiecesScript>().GetPosition())
+                            {
+                                BlackPieces.ToList().Remove(elem);
+                                Destroy(elem.gameObject);
+                                break;
+                            }
+                        }
+                        
+                        
                         ChangeColor(selectedChessPiece.gameObject, Color.white);
+                        selectedChessPiece.transform.position = hit.transform.gameObject.transform.position;
                         selectedChessPiece = null;
                         
                         playerTurn = PlayerTurn.Black;
@@ -80,8 +145,8 @@ public class Game : MonoBehaviour {
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
                     {
                         //Permet de pas bouger la piece sur elle meme
-                        //if(hit.collider.gameObject.name = selectedChessPiece.position) return;
-                        selectedChessPiece.transform.position = hit.point;
+                        //if(hit.collider.gameObject.transform.position = selectedChessPiece.position) return;
+                        selectedChessPiece.transform.position = hit.transform.gameObject.transform.position;
                         ChangeColor(selectedChessPiece.gameObject, Color.black);
                         selectedChessPiece = null;
                         playerTurn = PlayerTurn.White;

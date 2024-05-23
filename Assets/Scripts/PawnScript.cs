@@ -5,15 +5,11 @@ using UnityEngine.Serialization;
 
 public class PawnScript: PiecesScript
 {
-    [SerializeField] private Mesh whiteMesh;
-    [SerializeField] private Mesh blackMesh;
-
     private Mesh _queenMesh;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        _queenMesh = EnemiesInt == 2 ? whiteMesh : blackMesh;
     }
 
     // Update is called once per frame
