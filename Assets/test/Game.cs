@@ -80,6 +80,17 @@ public class Game : MonoBehaviour {
             }
         }
     }
+    
+    public GameObject[] GetBlackPieces()
+    {
+        return BlackPieces;
+    }
+    
+    public GameObject[] GetWhitePieces()
+    {
+        return WhitePieces;
+    }
+    
 
     void ChangeColor(GameObject obj, Color color)
     {
