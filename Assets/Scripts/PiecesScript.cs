@@ -17,6 +17,8 @@ public abstract class PiecesScript : MonoBehaviour
     
     public abstract List<(int, int)> Attacks();
 
+    public abstract bool IsAttacking(int i, int j);
+    
     public void SetPosition(int i, int j)
     {
         Position = (i, j);

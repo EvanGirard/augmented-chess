@@ -9,7 +9,8 @@ public class QueenScript : PiecesScript
     protected override void Start()
     {
         base.Start();
-        if (EnemiesInt == 2) Position = new ValueTuple<int, int>(0, 4);
+        if (TryGetComponent(out PawnScript pawn)) Position = pawn.GetPosition();
+        else Position = EnemiesInt == 2 ? new ValueTuple<int, int>(0, 4) : new ValueTuple<int, int>(7, 4);
     }
 
     // Update is called once per frame
@@ -186,5 +187,44 @@ public class QueenScript : PiecesScript
             break;
         }
         return attacks;
+    }
+
+    public override bool IsAttacking(int i, int j)
+    {
+        if (i == Position.Item1 && j == Position.Item2) return false;
+        int xDir;
+        if (Math.Abs(Position.Item1 - i) != 0 && Math.Abs(Position.Item2 - j) == 0)
+        {
+            xDir = (Position.Item1 - i) / Math.Abs(Position.Item1 - i);
+            do
+            {
+                i += xDir;
+            } while (i != Position.Item1 || BoardScript.BoardMatrix[i,j] == 0);
+
+            return i == Position.Item1;
+        }
+
+        int yDir;
+        if (Math.Abs(Position.Item1 - i) == 0 && Math.Abs(Position.Item2 - j) != 0)
+        {
+            yDir = (Position.Item2 - j) / Math.Abs(Position.Item2 - j);
+            do
+            {
+                j += yDir;
+            } while (j != Position.Item2 || BoardScript.BoardMatrix[i,j] == 0);
+        
+            return j == Position.Item2;
+        }
+
+        if (Math.Abs(Position.Item1 - i) != Math.Abs(Position.Item2 - j)) return false;
+        xDir = (Position.Item1 - i) / Math.Abs(Position.Item1 - i);
+        yDir = (Position.Item2 - j) / Math.Abs(Position.Item2 - j);
+        do
+        { 
+            i += xDir; 
+            j += yDir;
+        } while ((i,j) != Position || BoardScript.BoardMatrix[i,j] == 0); 
+        return (i, j) == Position;
+
     }
 }

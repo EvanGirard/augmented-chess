@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class RookScript : PiecesScript
     protected override void Start()
     {
         base.Start();
+        var position = gameObject.transform.position;
+        Position = ((int, int))(position.x, position.z);
     }
 
     // Update is called once per frame
@@ -105,5 +108,28 @@ public class RookScript : PiecesScript
         }
         return attacks;
     }
-    
+
+    public override bool IsAttacking(int i, int j)
+    {
+        if ((Math.Abs(Position.Item1 - i) == 0 && Math.Abs(Position.Item2 - j) == 0) ||
+            (Math.Abs(Position.Item1 - i) != 0 && Math.Abs(Position.Item2 - j) != 0)) return false;
+        if (Math.Abs(Position.Item1 - i) != 0)
+        {
+            var xDir = (Position.Item1 - i) / Math.Abs(Position.Item1 - i);
+            do
+            {
+                i += xDir;
+            } while (i != Position.Item1 || BoardScript.BoardMatrix[i,j] == 0);
+
+            return i == Position.Item1;
+        }
+        var yDir = (Position.Item2 - j) / Math.Abs(Position.Item2 - j);
+        do
+        {
+            j += yDir;
+        } while (j != Position.Item2 || BoardScript.BoardMatrix[i,j] == 0);
+        
+        return j == Position.Item2;
+        
+    }
 }

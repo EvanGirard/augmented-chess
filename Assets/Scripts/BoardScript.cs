@@ -7,8 +7,6 @@ using UnityEngine;
 public class BoardScript : MonoBehaviour
 {
     public static int[,] BoardMatrix;
-    public GameObject whitePawnPrefab;
-    public GameObject blackPawnPrefab;
     private Camera _camera;
     
     // Start is called before the first frame update
@@ -46,7 +44,7 @@ public class BoardScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
         var ray = _camera.ScreenPointToRay(Input.mousePosition);
