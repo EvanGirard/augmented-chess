@@ -1008,14 +1008,6 @@ MonoBehaviour:
   - {fileID: 1724647810}
   - {fileID: 743024082}
   WhitePieces:
-  - {fileID: 92252790}
-  - {fileID: 2079920008}
-  - {fileID: 1065613075}
-  - {fileID: 18361852}
-  - {fileID: 740969043}
-  - {fileID: 2025292090}
-  - {fileID: 1562142515}
-  - {fileID: 590468551}
   - {fileID: 1574157493}
   - {fileID: 1018715511}
   - {fileID: 1688608242}
@@ -1024,6 +1016,14 @@ MonoBehaviour:
   - {fileID: 617622473}
   - {fileID: 1244769317}
   - {fileID: 1459212600}
+  - {fileID: 92252790}
+  - {fileID: 2079920008}
+  - {fileID: 1065613075}
+  - {fileID: 18361852}
+  - {fileID: 740969043}
+  - {fileID: 2025292090}
+  - {fileID: 1562142515}
+  - {fileID: 590468551}
   Case:
   - {fileID: 684692058}
   - {fileID: 1472419153}
