@@ -44,16 +44,23 @@ public class Game : MonoBehaviour {
                         {
                             ChangeColor(selectedChessPiece.gameObject, Color.white);
                         }
+                        
+                        //change color of case where the piece can move !!!!!!!!
+                        
                         selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
                         ChangeColor(selectedChessPiece.gameObject, Color.yellow);
                     }
                     
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
                     {
+                        // Ne pas faire le move si le roi est toujours en échecs
+                        
+                        //Permet de pas bouger la piece sur elle meme
                         //if(hit.collider.gameObject.name = selectedChessPiece.position) return;
-                        selectedChessPiece.transform.position = hit.point;
+                        selectedChessPiece.transform.position = hit.transform.gameObject.transform.position;
                         ChangeColor(selectedChessPiece.gameObject, Color.white);
                         selectedChessPiece = null;
+                        
                         playerTurn = PlayerTurn.Black;
                     }
                 }
@@ -72,6 +79,7 @@ public class Game : MonoBehaviour {
                     
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
                     {
+                        //Permet de pas bouger la piece sur elle meme
                         //if(hit.collider.gameObject.name = selectedChessPiece.position) return;
                         selectedChessPiece.transform.position = hit.point;
                         ChangeColor(selectedChessPiece.gameObject, Color.black);
@@ -82,6 +90,8 @@ public class Game : MonoBehaviour {
             }
         }
     }
+    
+    //lors du déplacement modifier la matrice dans boardScript 1=W 2=B 0=empty
     
     public GameObject[] GetBlackPieces()
     {
