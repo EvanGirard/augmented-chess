@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,13 +12,12 @@ public class KingScript : PiecesScript
     protected override void Start()
     {
         base.Start();
-        Position = EnemiesInt == 2 ? new ValueTuple<int, int>(0, 4) : new ValueTuple<int, int>(7, 4);
-        _enemies = GameObject.FindGameObjectsWithTag(gameObject.CompareTag("Black") ? "White" : "Black");
+        _enemies = whites.Contains(gameObject) ? blacks : whites;
     }
 
     public void UpdateEnemies()
     {
-        _enemies = GameObject.FindGameObjectsWithTag(gameObject.CompareTag("Black") ? "White" : "Black");
+        _enemies = whites.Contains(gameObject) ? blacks : whites;
     }
     
     // Update is called once per frame

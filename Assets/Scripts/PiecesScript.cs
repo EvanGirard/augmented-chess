@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class PiecesScript : MonoBehaviour
 {
@@ -8,9 +11,27 @@ public abstract class PiecesScript : MonoBehaviour
 
     protected int EnemiesInt;
 
+    [SerializeField] protected Game game;
+
+    protected GameObject[] whites;
+    
+    protected GameObject[] blacks;
+    
+    protected GameObject[] cases;
+    
     protected virtual void Start()
     {
-        EnemiesInt = gameObject.CompareTag("White") ? 2 : 1;
+        game = GameObject.Find("ImageTarget").GetComponent<Game>();
+        whites = game.GetWhitePieces();
+        blacks = game.GetBlackPieces();
+        cases = game.GetCase();
+        var isWhite = whites.Contains(gameObject);
+        EnemiesInt = isWhite ? 2 : 1;
+        if (isWhite)
+        {
+            
+        }
+        
     }
     
     public abstract List<(int, int)> Moves();
@@ -28,4 +49,5 @@ public abstract class PiecesScript : MonoBehaviour
     {
         return Position;
     }
+    
 }

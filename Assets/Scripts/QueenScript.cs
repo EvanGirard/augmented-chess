@@ -10,7 +10,6 @@ public class QueenScript : PiecesScript
     {
         base.Start();
         if (TryGetComponent(out PawnScript pawn)) Position = pawn.GetPosition();
-        else Position = EnemiesInt == 2 ? new ValueTuple<int, int>(0, 4) : new ValueTuple<int, int>(7, 4);
     }
 
     // Update is called once per frame

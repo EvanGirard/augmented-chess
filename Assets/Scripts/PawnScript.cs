@@ -14,19 +14,17 @@ public class PawnScript: PiecesScript
     {
         base.Start();
         _queenMesh = EnemiesInt == 2 ? whiteMesh : blackMesh;
-        var position = gameObject.transform.position;
-        Position = ((int, int))(position.x, position.z);
     }
 
     // Update is called once per frame
-    private void Update()
+    /*private void Update()
     {
         if ((Position.Item2 != 7 || EnemiesInt != 2) && (Position.Item2 != 0 || EnemiesInt != 1)) return;
         gameObject.AddComponent<QueenScript>();
         gameObject.GetComponent<MeshFilter>().mesh = _queenMesh;
         
         Destroy(this,0.1f);
-    }
+    }*/
     
     public override List<(int, int)> Moves()
     {

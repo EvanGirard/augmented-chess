@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.451401, g: 0.5008942, b: 0.5723129, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140028, g: 0.5008927, b: 0.57231224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -999,14 +999,14 @@ MonoBehaviour:
   - {fileID: 1439586831}
   - {fileID: 1114650755}
   - {fileID: 116407027}
-  - {fileID: 16163702}
-  - {fileID: 493968145}
-  - {fileID: 2088179320}
-  - {fileID: 1724647810}
   - {fileID: 76755256}
-  - {fileID: 743024082}
+  - {fileID: 2088179320}
+  - {fileID: 16163702}
   - {fileID: 938846849}
   - {fileID: 1708191149}
+  - {fileID: 493968145}
+  - {fileID: 1724647810}
+  - {fileID: 743024082}
   WhitePieces:
   - {fileID: 92252790}
   - {fileID: 2079920008}
@@ -1016,14 +1016,14 @@ MonoBehaviour:
   - {fileID: 2025292090}
   - {fileID: 1562142515}
   - {fileID: 590468551}
-  - {fileID: 1688608242}
-  - {fileID: 617622473}
-  - {fileID: 1018715511}
-  - {fileID: 1244769317}
   - {fileID: 1574157493}
-  - {fileID: 1459212600}
+  - {fileID: 1018715511}
+  - {fileID: 1688608242}
   - {fileID: 1854087059}
   - {fileID: 696770132}
+  - {fileID: 617622473}
+  - {fileID: 1244769317}
+  - {fileID: 1459212600}
   Case:
   - {fileID: 684692058}
   - {fileID: 1472419153}
