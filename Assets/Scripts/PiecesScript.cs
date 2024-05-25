@@ -11,7 +11,7 @@ public abstract class PiecesScript : MonoBehaviour
 
     protected int EnemiesInt;
 
-    [SerializeField] protected Game game;
+    protected Game Game;
 
     protected GameObject[] whites;
     
@@ -21,18 +21,19 @@ public abstract class PiecesScript : MonoBehaviour
     
     protected virtual void Start()
     {
-        game = GameObject.Find("ImageTarget").GetComponent<Game>();
-        whites = game.GetWhitePieces();
-        blacks = game.GetBlackPieces();
-        cases = game.GetCase();
+        Game = GameObject.Find("ImageTarget").GetComponent<Game>();
+        whites = Game.GetWhitePieces();
+        blacks = Game.GetBlackPieces();
+        cases = Game.GetCase();
         var isWhite = whites.Contains(gameObject);
+        var pos = 0;
         EnemiesInt = isWhite ? 2 : 1;
         if (isWhite)
         {
             for (var i = 0; i < whites.Length; i++)
             {
                 if (whites[i].gameObject.name != name) continue;
-                var pos = i;
+                pos = i;
                 break;
             }
         }
@@ -41,11 +42,12 @@ public abstract class PiecesScript : MonoBehaviour
             for (var i = 0; i < blacks.Length; i++)
             {
                 if (blacks[i].gameObject.name != name) continue;
-                var pos = i + 48 ;
+                pos = i + 48 ;
                 break;
             }
         }
-        
+        var column = Math.DivRem(pos, 8, out var line);
+        Position = (line, column);
     }
     
     public abstract List<(int, int)> Moves();

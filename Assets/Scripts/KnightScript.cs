@@ -10,9 +10,6 @@ public class KnightScript : PiecesScript
     protected override void Start()
     {
         base.Start();
-        var position = gameObject.transform.position;
-        Debug.Log(position);
-        Position = ((int, int))(position.x, position.z);
     }
 
     // Update is called once per frame

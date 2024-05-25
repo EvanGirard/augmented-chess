@@ -9,8 +9,6 @@ public class BishopScript : PiecesScript
     protected override void Start()
     {
         base.Start();
-        var position = gameObject.transform.position;
-        Position = ((int, int))(position.x, position.z);
     }
 
     // Update is called once per frame
@@ -23,7 +21,7 @@ public class BishopScript : PiecesScript
     {
         var moves = new List<(int, int)>();
         var k = 1;
-        while (Position.Item1+k < 8 && Position.Item2+k < 8)
+        while (Position.Item1+k <= 7 && Position.Item2+k <= 7)
         {
             if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2+k] != 0) break;
             moves.Add((Position.Item1+k,Position.Item2+k));
@@ -38,14 +36,14 @@ public class BishopScript : PiecesScript
         }
 
         k = 1;
-        while (Position.Item1-k >= 0 && Position.Item2+k < 8)
+        while (Position.Item1-k >= 0 && Position.Item2+k <= 7)
         {
             if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2+k] != 0) break;
             moves.Add((Position.Item1-k,Position.Item2+k));
             k++;
         }
         k = 1;
-        while (Position.Item1+k < 8 && Position.Item2-k >= 0)
+        while (Position.Item1+k <= 7 && Position.Item2-k >= 0)
         {
             if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2-k] != 0) break;
             moves.Add((Position.Item1+k,Position.Item2-k));
@@ -58,7 +56,7 @@ public class BishopScript : PiecesScript
     {
         var attacks = new List<(int, int)>();
         var k = 1;
-        while (Position.Item1+k < 8 && Position.Item2+k < 8)
+        while (Position.Item1+k <= 7 && Position.Item2+k <= 7)
         {
             if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 + k] == 0)
             {
@@ -83,7 +81,7 @@ public class BishopScript : PiecesScript
         }
 
         k = 1;
-        while (Position.Item1-k >= 0 && Position.Item2+k < 8)
+        while (Position.Item1-k >= 0 && Position.Item2+k <= 7)
         {
             if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2+k] == 0)
             {
@@ -95,7 +93,7 @@ public class BishopScript : PiecesScript
             break;
         }
         k = 1;
-        while (Position.Item1+k < 8 && Position.Item2-k >= 0)
+        while (Position.Item1+k <= 7 && Position.Item2-k >= 0)
         {
             if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 - k] == 0)
             {

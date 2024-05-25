@@ -87,7 +87,7 @@ public class QueenScript : PiecesScript
     {
         var attacks = new List<(int,int)>();
         var k = 1;
-        while (Position.Item1+k<8)
+        while (Position.Item1+k < 8)
         {
             if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2] == 0)
             {

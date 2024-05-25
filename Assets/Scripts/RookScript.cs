@@ -9,8 +9,6 @@ public class RookScript : PiecesScript
     protected override void Start()
     {
         base.Start();
-        var position = gameObject.transform.position;
-        Position = ((int, int))(position.x, position.z);
     }
 
     // Update is called once per frame

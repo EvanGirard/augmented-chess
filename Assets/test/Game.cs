@@ -24,7 +24,6 @@ public class Game : MonoBehaviour {
 
     void Start()
     {
-        Debug.Log(BlackPieces[0]);
         imageTarget = gameObject;
         playerTurn = PlayerTurn.White;
     }
@@ -45,8 +44,8 @@ public class Game : MonoBehaviour {
                     {
                         selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
                         
-                        List<(int,int)> moves = selectedChessPiece.Moves();
-                        List<(int,int)> attacks = selectedChessPiece.Attacks();
+                        var moves = selectedChessPiece.Moves();
+                        var attacks = selectedChessPiece.Attacks();
                         
                         foreach (var elem in moves)
                         {
@@ -60,12 +59,8 @@ public class Game : MonoBehaviour {
                         
                         if (selectedChessPiece != null)
                         {
-                            ChangeColor(selectedChessPiece.gameObject, Color.white);
+                            ChangeColor(selectedChessPiece.gameObject, Color.yellow);
                         }
-                        
-                        
-                        selectedChessPiece = hit.transform.gameObject.GetComponent<PiecesScript>();
-                        ChangeColor(selectedChessPiece.gameObject, Color.yellow);
                     }
                     
                     if (Case.Contains(hit.collider.gameObject) && selectedChessPiece != null)
@@ -75,50 +70,41 @@ public class Game : MonoBehaviour {
                         
                         foreach (var elem in WhitePieces)
                         {
-                            if (elem.name == "King")
-                            {
-                                king = elem.GetComponent<PiecesScript>();
-                                break;
-                            }
+                            if (elem.name != "White King E") continue;
+                            king = elem.GetComponent<PiecesScript>();
+                            break;
                         }
                         
                         BoardScript.BoardMatrix[selectedChessPiece.GetPosition().Item1, selectedChessPiece.GetPosition().Item2] = 0;
-                        
                         foreach (var elem in BlackPieces)
                         {
-                            Debug.Log(selectedChessPiece.GetPosition());
-                            if (elem.GetComponent<PiecesScript>().IsAttacking(king.GetPosition().Item1, king.GetPosition().Item2))
-                            {
-                                BoardScript.BoardMatrix[selectedChessPiece.GetPosition().Item1, selectedChessPiece.GetPosition().Item2] = 1;
-                                return;
-                            }
+                            if (!elem.GetComponent<PiecesScript>()
+                                    .IsAttacking(king.GetPosition().Item1, king.GetPosition().Item2)) continue;
+                            
+                            BoardScript.BoardMatrix[selectedChessPiece.GetPosition().Item1, selectedChessPiece.GetPosition().Item2] = 1;
+                            return;
                         }
+                        if (hit.collider.gameObject.GetComponent<Renderer>().material.color != Color.green && hit.collider.gameObject.GetComponent<Renderer>().material.color != Color.red) return;
+                        var caseIndex = 0;
                         
-                        if (hit.collider.gameObject.GetComponent<Renderer>().material.color != Color.green || hit.collider.gameObject.GetComponent<Renderer>().material.color != Color.red) return;
-                        
-                        int caseIndex = 0;
-                        
-                        for (int i = 0; i < Case.Length; i++)
+                        for (var i = 0; i < Case.Length; i++)
                         {
-                            if (Case[i] == hit.transform.gameObject)
-                            {
-                                caseIndex = i;
-                                break;
-                            }
+                            if (Case[i] != hit.transform.gameObject) continue;
+                            caseIndex = i;
+                            break;
                         }
                         
-                        var column = Math.DivRem(caseIndex, 8, out int line);
+                        var column = Math.DivRem(caseIndex, 8, out var line);
                         selectedChessPiece.SetPosition(line, column);
                         BoardScript.BoardMatrix[line, column] = 1;
-
+                        
                         foreach (var elem in BlackPieces)
                         {
-                            if (selectedChessPiece.GetPosition() == elem.GetComponent<PiecesScript>().GetPosition())
-                            {
-                                BlackPieces.ToList().Remove(elem);
-                                Destroy(elem.gameObject);
-                                break;
-                            }
+                            if (selectedChessPiece.GetPosition() != elem.GetComponent<PiecesScript>().GetPosition())
+                                continue;
+                            BlackPieces.ToList().Remove(elem);
+                            Destroy(elem.gameObject);
+                            break;
                         }
                         
                         
