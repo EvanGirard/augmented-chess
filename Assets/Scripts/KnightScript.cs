@@ -7,9 +7,9 @@ public class KnightScript : PiecesScript
 {
     
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame

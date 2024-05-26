@@ -9,7 +9,7 @@ public abstract class PiecesScript : MonoBehaviour
 {
     protected (int, int) Position;
 
-    protected int EnemiesInt;
+    public int EnemiesInt;
 
     protected Game Game;
 
@@ -19,7 +19,7 @@ public abstract class PiecesScript : MonoBehaviour
     
     protected GameObject[] cases;
     
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         Game = GameObject.Find("ImageTarget").GetComponent<Game>();
         whites = Game.GetWhitePieces();

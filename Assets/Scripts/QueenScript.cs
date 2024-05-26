@@ -6,17 +6,12 @@ using UnityEngine;
 public class QueenScript : PiecesScript
 {
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         if (TryGetComponent(out PawnScript pawn)) Position = pawn.GetPosition();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public override List<(int, int)> Moves()
     {
@@ -24,6 +19,7 @@ public class QueenScript : PiecesScript
         var k = 1;
         while (Position.Item1+k < 8 && Position.Item2+k < 8)
         {
+            Debug.Log("pass1");
             if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2+k] != 0) break;
             moves.Add((Position.Item1+k,Position.Item2+k));
             k++;
@@ -31,6 +27,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item1-k >= 0 && Position.Item2-k >= 0)
         {
+            Debug.Log("pass2");
             if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2-k] != 0) break;
             moves.Add((Position.Item1-k,Position.Item2-k));
             k++;
@@ -39,6 +36,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item1-k >= 0 && Position.Item2+k < 8)
         {
+            Debug.Log("pass3");
             if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2+k] != 0) break;
             moves.Add((Position.Item1-k,Position.Item2+k));
             k++;
@@ -46,6 +44,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item1+k < 8 && Position.Item2-k >= 0)
         {
+            Debug.Log("pass4");
             if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2-k] != 0) break;
             moves.Add((Position.Item1+k,Position.Item2-k));
             k++;
@@ -54,6 +53,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item1+k<8)
         {
+            Debug.Log("pass5");
             if (BoardScript.BoardMatrix[Position.Item1+k,Position.Item2] != 0) break;
             moves.Add((Position.Item1+k,Position.Item2));
             k++;
@@ -61,6 +61,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item1-k>=0)
         {
+            Debug.Log("pass6");
             if (BoardScript.BoardMatrix[Position.Item1-k,Position.Item2] != 0) break;
             moves.Add((Position.Item1-k,Position.Item2));
             k++;
@@ -69,6 +70,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item2+k<8)
         {
+            Debug.Log("pass7");
             if (BoardScript.BoardMatrix[Position.Item1,Position.Item2+k] != 0) break;
             moves.Add((Position.Item1,Position.Item2+k));
             k++;
@@ -76,10 +78,12 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item2-k>=0)
         {
+            Debug.Log("pass8");
             if (BoardScript.BoardMatrix[Position.Item1,Position.Item2-k] != 0) break;
             moves.Add((Position.Item1,Position.Item2-k));
             k++;
         }
+        
         return moves;
     }
     
@@ -114,6 +118,7 @@ public class QueenScript : PiecesScript
         k = 1;
         while (Position.Item2+k<8)
         {
+            
             if (BoardScript.BoardMatrix[Position.Item1,Position.Item2+k] == 0)
             {
                 k++;
@@ -198,7 +203,7 @@ public class QueenScript : PiecesScript
             do
             {
                 i += xDir;
-            } while (i != Position.Item1 || BoardScript.BoardMatrix[i,j] == 0);
+            } while (i != Position.Item1 && BoardScript.BoardMatrix[i,j] == 0);
 
             return i == Position.Item1;
         }
@@ -210,7 +215,7 @@ public class QueenScript : PiecesScript
             do
             {
                 j += yDir;
-            } while (j != Position.Item2 || BoardScript.BoardMatrix[i,j] == 0);
+            } while (j != Position.Item2 && BoardScript.BoardMatrix[i,j] == 0);
         
             return j == Position.Item2;
         }
@@ -222,7 +227,7 @@ public class QueenScript : PiecesScript
         { 
             i += xDir; 
             j += yDir;
-        } while ((i,j) != Position || BoardScript.BoardMatrix[i,j] == 0); 
+        } while ((i,j) != Position && BoardScript.BoardMatrix[i,j] == 0); 
         return (i, j) == Position;
 
     }

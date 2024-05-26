@@ -6,9 +6,9 @@ using UnityEngine;
 public class BishopScript : PiecesScript
 {
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame
@@ -104,6 +104,7 @@ public class BishopScript : PiecesScript
                 attacks.Add((Position.Item1+k,Position.Item2-k));
             break;
         }
+
         return attacks;
     }
 
@@ -117,7 +118,7 @@ public class BishopScript : PiecesScript
         {
             i -= xDir;
             j -= yDir;
-        } while ((i,j) != Position || BoardScript.BoardMatrix[i,j] == 0);
+        } while ((i,j) != Position && BoardScript.BoardMatrix[i,j] == 0);
         return (i, j) == Position;
     }
 }

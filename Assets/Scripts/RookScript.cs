@@ -6,9 +6,9 @@ using UnityEngine;
 public class RookScript : PiecesScript
 {
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     // Update is called once per frame
@@ -117,7 +117,7 @@ public class RookScript : PiecesScript
             do
             {
                 i += xDir;
-            } while (i != Position.Item1 || BoardScript.BoardMatrix[i,j] == 0);
+            } while (i != Position.Item1 && BoardScript.BoardMatrix[i,j] == 0);
 
             return i == Position.Item1;
         }
@@ -125,7 +125,7 @@ public class RookScript : PiecesScript
         do
         {
             j += yDir;
-        } while (j != Position.Item2 || BoardScript.BoardMatrix[i,j] == 0);
+        } while (j != Position.Item2 && BoardScript.BoardMatrix[i,j] == 0);
         
         return j == Position.Item2;
         

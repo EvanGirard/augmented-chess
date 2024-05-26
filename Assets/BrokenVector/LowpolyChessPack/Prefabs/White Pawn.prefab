@@ -119,5 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac34a4a2322ef2e48a3f66f3aada162a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteMesh: {fileID: 0}
-  blackMesh: {fileID: 0}
+  EnemiesInt: 0
