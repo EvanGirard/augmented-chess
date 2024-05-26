@@ -181,7 +181,7 @@ public class QueenScript : PiecesScript
                 k++;
                 continue;
             }
-            if (BoardScript.BoardMatrix[Position.Item1 - k, Position.Item2 + k] == EnemiesInt) 
+            if (BoardScript.BoardMatrix[Position.Item1 + k, Position.Item2 - k] == EnemiesInt) 
                 attacks.Add((Position.Item1+k,Position.Item2-k));
             break;
         }

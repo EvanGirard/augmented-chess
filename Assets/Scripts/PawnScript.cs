@@ -34,10 +34,10 @@ public class PawnScript: PiecesScript
         }
         else
         {
-            if (!(Position.Item1 - 1 >= 0 & BoardScript.BoardMatrix[Position.Item1 - 1, Position.Item2] == 0)) return moves;
-            moves.Add((Position.Item1+1,Position.Item2)); 
-            if (Position.Item1 == 6 && BoardScript.BoardMatrix[Position.Item1 - 2,Position.Item2] == 0) 
-                moves.Add((Position.Item1-2,Position.Item2));
+            if (!(Position.Item2 - 1 >= 0 && BoardScript.BoardMatrix[Position.Item1, Position.Item2 - 1] == 0)) return moves;
+            moves.Add((Position.Item1,Position.Item2 - 1)); 
+            if (Position.Item2 == 6 && BoardScript.BoardMatrix[Position.Item1,Position.Item2 - 2] == 0) 
+                moves.Add((Position.Item1,Position.Item2 - 2));
         }
         
         return moves;

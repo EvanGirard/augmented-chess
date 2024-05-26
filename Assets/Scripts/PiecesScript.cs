@@ -13,9 +13,9 @@ public abstract class PiecesScript : MonoBehaviour
 
     protected Game Game;
 
-    protected GameObject[] whites;
+    protected List<GameObject> whites;
     
-    protected GameObject[] blacks;
+    protected List<GameObject> blacks;
     
     protected GameObject[] cases;
     
@@ -30,7 +30,7 @@ public abstract class PiecesScript : MonoBehaviour
         EnemiesInt = isWhite ? 2 : 1;
         if (isWhite)
         {
-            for (var i = 0; i < whites.Length; i++)
+            for (var i = 0; i < whites.Count; i++)
             {
                 if (whites[i].gameObject.name != name) continue;
                 pos = i;
@@ -39,7 +39,7 @@ public abstract class PiecesScript : MonoBehaviour
         }
         else
         {
-            for (var i = 0; i < blacks.Length; i++)
+            for (var i = 0; i < blacks.Count; i++)
             {
                 if (blacks[i].gameObject.name != name) continue;
                 pos = i + 48 ;

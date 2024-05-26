@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class KingScript : PiecesScript
 {
-    private GameObject[] _enemies;
+    private List<GameObject> _enemies;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -100,5 +100,10 @@ public class KingScript : PiecesScript
     {
         return (Position.Item1 != i || Position.Item2 != j)
             && Math.Abs(Position.Item1 - i) <= 1 && Math.Abs(Position.Item2 - j) <= 1;
+    }
+    
+    public void SetEnemies(List<GameObject> enemies)
+    {
+        _enemies = enemies;
     }
 }
